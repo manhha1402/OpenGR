@@ -53,7 +53,7 @@
 
 #include <vector>
 #include <array>
-#include "gr/shared.h"
+#include <gr/utils/shared.h>
 
 namespace gr {
 
@@ -140,7 +140,7 @@ private:
 };
 
 
-} // namespace Super4PCS
+} // namespace gr
 
 
 #endif

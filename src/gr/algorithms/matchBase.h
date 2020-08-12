@@ -50,8 +50,8 @@
 #include <omp.h>
 #endif
 
-#include "gr/shared.h"
-#include "gr/sampling.h"
+#include "gr/utils/shared.h"
+#include "gr/utils/sampling.h"
 #include "gr/accelerators/kdtree.h"
 #include "gr/utils/logger.h"
 #include "gr/utils/crtp.h"
@@ -272,7 +272,7 @@ private:
     void initKdTree();
 
 }; /// class MatchBase
-} /// namespace Super4PCS
+} /// namespace gr
 #include "matchBase.hpp"
 
 #endif // _OPENGR_ALGO_MATCH_BASE_

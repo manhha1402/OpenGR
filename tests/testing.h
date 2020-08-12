@@ -57,7 +57,7 @@
 #include <sstream>
 #include <ctime>
 
-#include "gr/shared.h"
+#include "gr/utils/shared.h"
 #include "gr/algorithms/matchBase.h"
 
 #define DEFAULT_REPEAT 10
@@ -294,6 +294,6 @@ static bool init_testing(int argc, const char *argv[])
 }
 
 } // namespace Testing
-} // namespace Super4PCS
+} // namespace gr
 
 #endif // _OPENGR_TESTING_H_

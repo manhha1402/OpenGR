@@ -84,7 +84,7 @@ static inline void CleanInvalidNormals( PointContainer &v,
 
 template <typename PointContainer>
 static inline void TransformPointCloud( PointContainer& v,
-                                        Eigen::Ref<Eigen::Matrix<typename PointContainer::value_type::Scalar, 4, 4>> tr){
+                                        Eigen::Ref<const Eigen::Matrix<typename PointContainer::value_type::Scalar, 4, 4>> tr){
   using Scalar = typename PointContainer::value_type::Scalar;
   auto tr3x3 = tr.template block<3,3>(0,0);
   for (auto& vertex : v){
@@ -94,6 +94,6 @@ static inline void TransformPointCloud( PointContainer& v,
 }
 
 } // namespace Utils
-} // namespace Super4PCS
+} // namespace gr
 
 #endif // _UTILS_GEOMETRY_H_

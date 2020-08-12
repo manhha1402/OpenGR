@@ -1,0 +1,13 @@
+<package format="2">
+  <name>opengr</name>
+  <version>1.2.0</version>
+  <description>OpenGR: A C++ library for 3D Global Registration</description>
+  <maintainer email="nmellado0@gmail.com">Nicolas Mellado</maintainer>
+  <license>Apache 2.0</license>
+  <buildtool_depend>cmake</buildtool_depend>
+  <!-- Following recommendations of REP 136 -->
+  <exec_depend>catkin</exec_depend>
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

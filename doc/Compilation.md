@@ -90,6 +90,8 @@ They can be set either when calling CMake or globally by configuring Visual Stud
 ***
 
 ## <a name="usage"></a> Use OpenGR library in your own application
+
+### Using cmake
 **From release v.1.2**, OpenGR is now header-only, and provides a CMake package generated during the installation process.
 The target namespace is `gr`.
 
@@ -116,6 +118,9 @@ OpenGR files will be located in the `gr` folder. For instance, to use the Super4
 
 ```
 This functionality is tested by our continuous integration system. Checkout the [externalAppTest](https://github.com/STORM-IRIT/OpenGR/tree/master/tests/externalAppTest) for a working example.
+
+### Using in ROS (Robot Operating System)
+OpenGR includes a catkin [package files](http://wiki.ros.org/catkin/package.xml) to simplify use in ROS.
 
 ## <a name="perfs"></a> Debug mode and performances
 Note that we heavily use template mechanisms that requires to enable inlining in order to be efficient. Compiling in Debug mode without inlining may result in longer running time than expected.

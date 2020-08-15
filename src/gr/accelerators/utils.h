@@ -218,7 +218,7 @@ private:
 
 
 template<>
-void
+inline void
 OneRingNeighborhood::get<1> (
      int queryId,
      int nElPerDim,
@@ -235,7 +235,7 @@ OneRingNeighborhood::get<1> (
     }
 }
 template<>
-void
+inline void
 OneRingNeighborhood::get<2> (
      int queryId,
      int nElPerDim,
@@ -275,7 +275,7 @@ OneRingNeighborhood::get<2> (
     }
 }
 template<>
-void
+inline void
 OneRingNeighborhood::get<3> (
      int queryId,
      int nElPerDim,

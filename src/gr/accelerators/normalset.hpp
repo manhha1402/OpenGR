@@ -45,8 +45,6 @@
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
 
-#ifndef _OPENGR_ACCELERATORS_INDEXED_NORMAL_SET_HPP_
-#define _OPENGR_ACCELERATORS_INDEXED_NORMAL_SET_HPP_
 
 #include <math.h>
 #include <set>
@@ -247,6 +245,4 @@ IndexedNormalSet<Point, dim, _ngSize, Scalar>::getNeighbors(
 
 } // namespace Super4CS
 
-
-#endif // _INDEXED_NORMAL_SET_HPP_
 

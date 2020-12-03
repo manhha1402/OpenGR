@@ -41,8 +41,7 @@
 // Use google search on "4-points congruent sets" to see many related papers
 // and applications.
 
-#ifndef _OPENGR_ALGO_MATCH_BASE_
-#define _OPENGR_ALGO_MATCH_BASE_
+#pragma once
 
 #include <vector>
 
@@ -275,4 +274,3 @@ private:
 } /// namespace gr
 #include "matchBase.hpp"
 
-#endif // _OPENGR_ALGO_MATCH_BASE_

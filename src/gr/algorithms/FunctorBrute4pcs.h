@@ -1,6 +1,4 @@
-
-#ifndef BRUTE4PCS_FUNCTOR4PCS_H
-#define BRUTE4PCS_FUNCTOR4PCS_H
+#pragma once
 
 #include <vector>
 #include "gr/utils/shared.h"
@@ -156,4 +154,3 @@ namespace gr {
 }
 
 
-#endif //BRUTE4PCS_FUNCTOR4PCS_H

@@ -4,6 +4,15 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include_directories(${SRC_DIR})
 
+
+find_package(OpenMP)
+set(OpenGRTestsDeps)
+if(OpenMP_CXX_FOUND)
+    set(OpenGRTestsDeps OpenMP::OpenMP_CXX)
+    add_definitions(-DOpenGR_USE_OPENMP)
+    message(STATUS "[Tests] Parallelization enabled using OpenMP")
+endif()
+
 #############################################
 ## start by downloading standford datasets, that will be used
 ## to test the approach
@@ -70,7 +79,7 @@ add_dependencies(buildtests pair_extraction)
 add_test(NAME pair_extraction
          #CONFIGURATIONS Release
          COMMAND pair_extraction)
-target_link_libraries(pair_extraction gr::accel gr::algo gr::utils)
+target_link_libraries(pair_extraction gr::accel gr::algo gr::utils ${OpenGRTestsDeps})
 if(OpenGR_USE_CHEALPIX)
     target_link_libraries(pair_extraction ${Chealpix_LIBS} )
 endif(OpenGR_USE_CHEALPIX)
@@ -106,7 +115,7 @@ if (Boost_FOUND)
                  COMMAND matching ${subtest_id})
         set_tests_properties ( "matching_${subtest_id}" PROPERTIES TIMEOUT 600) # in seconds
     endforeach()
-    target_link_libraries(matching gr::accel gr::algo gr::utils gr::io)
+    target_link_libraries(matching gr::accel gr::algo gr::utils gr::io ${OpenGRTestsDeps})
     target_link_libraries(matching ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
     add_dependencies(matching dataset-standford-armadillo dataset-standford-bunny)
     if(OpenGR_USE_CHEALPIX)
@@ -132,7 +141,7 @@ if (Boost_FOUND)
                 COMMAND matching3pcs ${subtest_id})
         set_tests_properties ( "matching3pcs_${subtest_id}" PROPERTIES TIMEOUT 600) # in seconds
     endforeach()
-    target_link_libraries(matching3pcs gr::accel gr::algo gr::utils gr::io)
+    target_link_libraries(matching3pcs gr::accel gr::algo gr::utils gr::io ${OpenGRTestsDeps})
     target_link_libraries(matching3pcs ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
     add_dependencies(matching3pcs dataset-standford-armadillo dataset-standford-bunny)
     if(OpenGR_USE_CHEALPIX)

@@ -2,8 +2,7 @@
 // Created by Sandra Alfaro on 30/05/18.
 //
 
-#ifndef OPENGR_MATCH3PCSBASE_H
-#define OPENGR_MATCH3PCSBASE_H
+#pragma once
 
 #include <vector>
 #include "gr/utils/shared.h"
@@ -65,4 +64,3 @@ namespace gr {
 }
 
 #include "match3pcs.hpp"
-#endif //OPENGR_MATCH3PCSBASE_H

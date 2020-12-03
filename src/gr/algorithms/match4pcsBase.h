@@ -2,8 +2,7 @@
 // Created by Sandra Alfaro on 24/05/18.
 //
 
-#ifndef OPENGR_MATCH4PCSBASE_H
-#define OPENGR_MATCH4PCSBASE_H
+#pragma once
 
 #include <vector>
 
@@ -111,4 +110,3 @@ namespace gr {
 
 #include "match4pcsBase.hpp"
 
-#endif //OPENGR_MATCH4PCSBASE_H

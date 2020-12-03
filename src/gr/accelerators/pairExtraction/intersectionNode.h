@@ -44,9 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-
-#ifndef _OPENGR_ACCELERATORS_INTERSECTION_NODE_H_
-#define _OPENGR_ACCELERATORS_INTERSECTION_NODE_H_
+#pragma once
 
 #include <list>
 #include "gr/accelerators/utils.h"
@@ -243,5 +241,4 @@ NdNode< Point, _dim, Scalar, _PointContainer, _IdContainer>::split(
 
 } // namespace gr
 
-#endif
 

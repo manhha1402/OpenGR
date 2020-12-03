@@ -2,8 +2,7 @@
 // Created by Sandra Alfaro on 24/04/18.
 //
 
-#ifndef OPENGR_FUNCTOR4PCS_H
-#define OPENGR_FUNCTOR4PCS_H
+#pragma once
 
 #include <vector>
 #include "gr/utils/shared.h"
@@ -161,4 +160,3 @@ namespace gr {
 }
 
 
-#endif //OPENGR_FUNCTOR4PCS_H

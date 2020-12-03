@@ -1,5 +1,4 @@
-#ifndef _OPENGR_ALGO_PAIRCREATIONFUNCTOR_H
-#define _OPENGR_ALGO_PAIRCREATIONFUNCTOR_H
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -170,4 +169,3 @@ public:
 
 } // namespace gr
 
-#endif // PAIRCREATIONFUNCTOR_H

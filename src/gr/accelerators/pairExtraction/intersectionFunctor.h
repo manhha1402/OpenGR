@@ -44,9 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-
-#ifndef _OPENGR_ACCELERATORS_INTERSECTION_FUNCTOR_H_
-#define _OPENGR_ACCELERATORS_INTERSECTION_FUNCTOR_H_
+#pragma once
 
 #include "gr/accelerators/pairExtraction/intersectionNode.h"
 #include <list>
@@ -232,5 +230,4 @@ IntersectionFunctor<Primitive, Point, dim, Scalar>::process(
 
 } // namespace gr
 
-#endif
 

@@ -1,5 +1,4 @@
-#ifndef __POINT_ADAPTER_EXTLIB1_H__
-#define __POINT_ADAPTER_EXTLIB1_H__
+#pragma once
 
 #include <iostream>
 #include <Eigen/Core>
@@ -35,5 +34,3 @@ struct PointAdapter {
 
 }
 //! [extlib1::PointAdapter]
-
-#endif

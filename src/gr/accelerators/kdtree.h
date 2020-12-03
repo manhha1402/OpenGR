@@ -44,8 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-#ifndef _OPENGR_ACCELERATORS_KDTREE_H
-#define _OPENGR_ACCELERATORS_KDTREE_H
+#pragma once
 
 #include "gr/utils/disablewarnings.h"
 
@@ -568,4 +567,3 @@ void KdTree<Scalar, Index>::createTree(unsigned int nodeId, unsigned int start, 
 } //namespace gr
 
 
-#endif // KDTREE_H

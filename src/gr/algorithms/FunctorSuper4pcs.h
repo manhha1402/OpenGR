@@ -2,9 +2,7 @@
 // Created by Sandra Alfaro on 24/04/18.
 //
 
-#ifndef SUPER4PCS_FUNCTORSUPER4PCS_H
-#define SUPER4PCS_FUNCTORSUPER4PCS_H
-
+#pragma once
 
 #include <vector>
 #include "gr/utils/shared.h"
@@ -220,4 +218,3 @@ namespace gr {
     };
 }
 
-#endif //SUPER4PCS_FUNCTORSUPER4PCS_H

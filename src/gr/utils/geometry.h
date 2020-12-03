@@ -44,8 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-#ifndef _OPENGR_UTILS_GEOMETRY_H_
-#define _OPENGR_UTILS_GEOMETRY_H_
+#pragma once
 
 #include "gr/utils/disablewarnings.h"
 #include "Eigen/Core"
@@ -96,4 +95,3 @@ static inline void TransformPointCloud( PointContainer& v,
 } // namespace Utils
 } // namespace gr
 
-#endif // _UTILS_GEOMETRY_H_

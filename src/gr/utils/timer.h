@@ -44,8 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-#ifndef _OPENGR_UTILS_TIMER_H_
-#define _OPENGR_UTILS_TIMER_H_
+#pragma once
 
 #include <chrono>  //timers
 #include "gr/utils/disablewarnings.h"
@@ -82,4 +81,3 @@ private:
 } // namespace Utils
 } // namespace gr
 
-#endif // _TIMER_H_

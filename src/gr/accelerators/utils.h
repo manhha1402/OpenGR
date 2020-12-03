@@ -44,9 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-
-#ifndef _OPENGR_ACCELERATORS_UTILS_H_
-#define _OPENGR_ACCELERATORS_UTILS_H_
+#pragma once
 
 #include <string>
 #include <stdexcept> //out_of_range
@@ -296,4 +294,3 @@ OneRingNeighborhood::get<3> (
 } //namespace gr
 
 
-#endif

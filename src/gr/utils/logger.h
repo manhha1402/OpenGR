@@ -44,8 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-#ifndef _OPENGR_UTILS_LOGGER_H
-#define _OPENGR_UTILS_LOGGER_H
+#pragma once
 
 #include <iostream>
 
@@ -121,4 +120,3 @@ protected:
 } // namespace gr
 
 
-#endif // LOGGER_H

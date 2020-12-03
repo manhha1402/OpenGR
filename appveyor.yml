@@ -2,7 +2,7 @@
 version: "{build}"
 
 # Operating system (build VM template)
-os: Visual Studio 2017
+os: Visual Studio 2019
 
 # build platform, i.e. Win32 (instead of x86), x64, Any CPU. This setting is optional.
 platform:
@@ -53,10 +53,8 @@ install:
 before_build:
   - cmd: md %OpenGR_BUILD_DIR%
   - cmd: cd %OpenGR_BUILD_DIR%
-
-  - cmd: if "%platform%"=="Win32" set CMAKE_GENERATOR_NAME=Visual Studio 14 2015
-  - cmd: if "%platform%"=="x64"   set CMAKE_GENERATOR_NAME=Visual Studio 15 2017 Win64
-  - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DOpenGR_COMPILE_TESTS=TRUE -DIO_USE_BOOST=FALSE -DENABLE_TIMING=FALSE -DOpenGR_USE_CHEALPIX=FALSE -DDL_DATASETS=FALSE  -DCMAKE_INSTALL_PREFIX=%OpenGR_RELEASE_DIR% ..
+  
+  - cmd: cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=%configuration% -DOpenGR_COMPILE_TESTS=TRUE -DIO_USE_BOOST=FALSE -DENABLE_TIMING=FALSE -DOpenGR_USE_CHEALPIX=FALSE -DDL_DATASETS=FALSE  -DCMAKE_INSTALL_PREFIX=%OpenGR_RELEASE_DIR% ..
   - cmd: dir .
 
 build:

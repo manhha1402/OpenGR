@@ -44,8 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-#ifndef _PCS_UTILS_H_
-#define _PCS_UTILS_H_
+#pragma once
 
 #ifdef WIN32
 #undef NO_DATA
@@ -143,4 +142,3 @@ private:
 } // namespace gr
 
 
-#endif

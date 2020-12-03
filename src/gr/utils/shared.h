@@ -41,8 +41,7 @@
 // Use google search on "4-points congruent sets" to see many related papers
 // and applications.
 
-#ifndef _SHARED_4PCS_H_
-#define _SHARED_4PCS_H_
+#pragma once
 
 #include "gr/utils/disablewarnings.h"
 
@@ -184,4 +183,3 @@ class Point3D
 
 
 
-#endif //_SHARED_4PCS_H_

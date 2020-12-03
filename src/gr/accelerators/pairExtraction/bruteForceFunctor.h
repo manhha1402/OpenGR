@@ -44,9 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-
-#ifndef _OPENGR_ACCELERATORS_BRUTE_FORCE_FUNCTOR_H_
-#define _OPENGR_ACCELERATORS_BRUTE_FORCE_FUNCTOR_H_
+#pragma once
 
 #include "gr/accelerators/pairExtraction/intersectionNode.h"
 #include <list>
@@ -115,5 +113,4 @@ BruteForceFunctor<DummyPrimitive, Point, dim, Scalar>::process(
 
 } // namespace gr
 
-#endif // _BRUTE_FORCE_FUNCTOR_H_
 

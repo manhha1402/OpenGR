@@ -2,8 +2,7 @@
 // Created by Sandra Alfaro on 26/04/18.
 //
 
-#ifndef OPENGR_FUNCTORFEATUREPOINTTEST_H
-#define OPENGR_FUNCTORFEATUREPOINTTEST_H
+#pragma once
 
 #include "gr/utils/shared.h"
 #include <vector>
@@ -147,4 +146,3 @@ struct PairFilterConcept {
     };
 }
 
-#endif //OPENGR_FUNCTORFEATUREPOINTTEST_H

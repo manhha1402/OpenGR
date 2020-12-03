@@ -1,5 +1,4 @@
-#ifndef _OPENGR_IO_PLY_H
-#define _OPENGR_IO_PLY_H
+#pragma once
 
 #include <cstdarg>
 
@@ -398,4 +397,3 @@ IOManager::ReadPly(const char *filename,
   return false;
 }
 
-#endif //IO_PLY_H

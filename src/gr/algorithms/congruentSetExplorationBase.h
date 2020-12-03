@@ -41,8 +41,7 @@
 // Use google search on "4-points congruent sets" to see many related papers
 // and applications.
 
-#ifndef _OPENGR_ALGO_CSE_
-#define _OPENGR_ALGO_CSE_
+#pragma once
 
 #include <vector>
 
@@ -228,4 +227,3 @@ protected :
 } /// namespace gr
 #include "congruentSetExplorationBase.hpp"
 
-#endif // _OPENGR_ALGO_CSE_

@@ -38,8 +38,7 @@
  *
  */
 
-#ifndef PCL_REGISTRATION_OPENGR_H_
-#define PCL_REGISTRATION_OPENGR_H_
+#pragma once
 
 #include <pcl/registration/registration.h>
 #include <pcl/registration/transformation_estimation_svd.h>
@@ -170,6 +169,5 @@ namespace pcl
   };
 }
 
-#endif
 
 #include <pcl/registration/impl/super4pcs.hpp>

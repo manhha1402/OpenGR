@@ -47,8 +47,7 @@
 // Part of this file has been adapted from the Eigen library.
 
 
-#ifndef _OPENGR_TESTING_H_
-#define _OPENGR_TESTING_H_
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -296,4 +295,3 @@ static bool init_testing(int argc, const char *argv[])
 } // namespace Testing
 } // namespace gr
 
-#endif // _OPENGR_TESTING_H_

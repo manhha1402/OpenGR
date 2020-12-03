@@ -1,5 +1,4 @@
-#ifndef __POINT_EXTLIB2_H__
-#define __POINT_EXTLIB2_H__
+#pragma once
 
 //! [extlib2::PointType2]
 namespace extlib2
@@ -12,5 +11,3 @@ namespace extlib2
   };
 }
 //! [extlib2::PointType2]
-
-#endif

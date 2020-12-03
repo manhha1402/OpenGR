@@ -44,9 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-
-#ifndef _OPENGR_ACCELERATORS_INDEXED_NORMAL_HEAL_SET_H_
-#define _OPENGR_ACCELERATORS_INDEXED_NORMAL_HEAL_SET_H_
+#pragma once
 
 #include "gr/utils/disablewarnings.h"
 #include "gr/accelerators/utils.h"
@@ -325,4 +323,3 @@ IndexedNormalHealSet::getNeighbors(
 
 } // namespace gr
 
-#endif // _INDEXED_NORMAL_SET_H_

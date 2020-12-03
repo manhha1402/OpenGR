@@ -2,8 +2,7 @@
 // Created by Necip Fazil Yildiran on 06/20/19.
 //
 
-#ifndef __POINT_CONVERSION_H__
-#define __POINT_CONVERSION_H__
+#pragma once
 
 #include <gr/utils/shared.h>
 
@@ -60,4 +59,3 @@ inline std::list<extlib2::PointType2> getExtlib2Points(const std::vector<gr::Poi
   return result;
 }
 
-#endif

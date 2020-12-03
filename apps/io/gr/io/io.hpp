@@ -1,8 +1,6 @@
 //
 // Created by Necip Fazil Yildiran on 06/18/19.
 //
-#ifndef _OPENGR_IO_HPP_
-#define _OPENGR_IO_HPP_
 
 #include <Eigen/Geometry>
 
@@ -444,5 +442,3 @@ IOManager::ReadObj(const char *filename,
   if (v.size() == 0) return false;
   return true;
 }
-
-#endif

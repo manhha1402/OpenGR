@@ -44,9 +44,7 @@
 // source code and datasets are available for research use at
 // http://geometry.cs.ucl.ac.uk/projects/2014/super4PCS/.
 
-
-#ifndef _OPENGR_ACCELERATORS_INTERSECTION_PRIMITIVES_H_
-#define _OPENGR_ACCELERATORS_INTERSECTION_PRIMITIVES_H_
+#pragma once
 
 #ifndef SQR
 #define SQR(a)		((a)*(a))
@@ -167,5 +165,4 @@ public:
 
 } // namespace gr
 
-#endif
 

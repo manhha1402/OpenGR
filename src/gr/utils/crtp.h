@@ -16,10 +16,7 @@
 //
 // Authors: Gael Guennebaud
 
-#ifndef _OPENGR_UTILS_CRTP_H_
-#define _OPENGR_UTILS_CRTP_H_
-
-
+#pragma once
 
 namespace gr{
     namespace Utils{
@@ -60,4 +57,3 @@ namespace gr{
     } // namespace Utils
 } // namespace gr
 
-#endif // CRTP_H

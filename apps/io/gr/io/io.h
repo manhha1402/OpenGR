@@ -1,5 +1,4 @@
-#ifndef _OPENGR_IO_IO_H
-#define _OPENGR_IO_IO_H
+#pragma once
 
 #include "gr/utils/shared.h"
 #include "gr/utils/disablewarnings.h"
@@ -140,4 +139,4 @@ private:
 
 #include "io.hpp"
 #include "io_ply.h"
-#endif // IO_H
+

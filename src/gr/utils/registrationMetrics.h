@@ -19,8 +19,7 @@
 // This file is part of the OpenGR library
 //
 
-#ifndef _OPENGR_UTILS_REGISTRATION_METRICS_H
-#define _OPENGR_UTILS_REGISTRATION_METRICS_H
+#pragma once
 
 #include "gr/accelerators/kdtree.h"
 #include <Eigen/Core> // Eigen::Ref
@@ -121,4 +120,3 @@ struct WeightedLCPMetric {
 } // namespace gr
 
 
-#endif // _OPENGR_UTILS_REGISTRATION_METRICS_H

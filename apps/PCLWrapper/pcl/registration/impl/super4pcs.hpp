@@ -38,9 +38,6 @@
  *
  */
 
-#ifndef PCL_REGISTRATION_OPENGR_HPP_
-#define PCL_REGISTRATION_OPENGR_HPP_
-
 #include <pcl/io/ply_io.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +83,4 @@ pcl::Super4PCS<PointSource, PointTarget>::computeTransformation (PointCloudSourc
   converged_ = true;
 }
 }
-
-#endif
 

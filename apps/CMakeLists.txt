@@ -8,6 +8,7 @@ find_package(OpenMP)
 set(OpenGRAppsDeps)
 if(OpenMP_CXX_FOUND)
     set(OpenGRAppsDeps OpenMP::OpenMP_CXX)
+    add_definitions(-DOpenGR_USE_OPENMP)
     message(STATUS "Parallelization enabled using OpenMP")
 endif()
 

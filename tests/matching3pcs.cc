@@ -98,8 +98,7 @@ extractFilesAndTrFromStandfordConfFile(
         std::vector<Transform>& transforms,
         std::vector<string>& files
 ){
-    using namespace boost;
-    using namespace std;
+    using namespace boost::filesystem;
 
     VERIFY (filesystem::exists(confFilePath) && filesystem::is_regular_file(confFilePath));
 
@@ -108,8 +107,8 @@ extractFilesAndTrFromStandfordConfFile(
     VERIFY (filesystem::exists(workingDir));
 
     // read the configuration file and call the matching process
-    string line;
-    ifstream confFile;
+    std::string line;
+    std::ifstream confFile;
     confFile.open(confFilePath);
     VERIFY (confFile.is_open());
 

@@ -1,5 +1,8 @@
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.15)
 project (OpenGR LANGUAGES CXX VERSION 1.2.0)
+
+# FIXME: wait for cmake 3.19 to be able to set INTERFACE libraries with sources
+cmake_policy(SET CMP0076 OLD)
 
 ################################################################################
 ## User options
@@ -7,7 +10,6 @@ project (OpenGR LANGUAGES CXX VERSION 1.2.0)
 # Set option to enable timing recording
 OPTION (OpenGR_COMPILE_TESTS "Enable testing" TRUE)
 OPTION (OpenGR_COMPILE_APPS "Compile demo applications (including the Super4PCS standalone)" TRUE)
-OPTION (IO_USE_BOOST "Use boost::filesystem for texture loading" TRUE)
 OPTION (ENABLE_TIMING "Enable computation time recording" FALSE)
 OPTION (OpenGR_USE_CHEALPIX "Use Chealpix for orientation filtering (deprecated)" FALSE)
 OPTION (DL_DATASETS "Download demo datasets and associated run scripts" FALSE)
@@ -87,6 +89,7 @@ endif (DL_DATASETS)
 
 if(OpenGR_USE_CHEALPIX)
     include(cmake/ConfigureChealpix.cmake)
+    message(WARNING "Chealpix support is deprecated")
 endif(OpenGR_USE_CHEALPIX)
 
 ## Eigen: automatic configuration:
@@ -221,17 +224,13 @@ endif(DOXYGEN_FOUND)
 ################################################################################
 
 # add a target allowing to force the installation of the library
-
-set(ForceInstallCommutators "")
-if (MSVC)
-        set(ForceInstallCommutators "/p:Configuration=${CMAKE_BUILD_TYPE}")
-endif(MSVC)
 add_custom_target(ForceOpenGRInstallation
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target install -- ${ForceInstallCommutators}
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} --install ${CMAKE_BINARY_DIR}
     COMMENT "Forcing OpenGR installation")
 
 
-set(config_install_dir "${CMAKE_INSTALL_PREFIX}/lib/cmake/")
+set(config_install_dir "${CMAKE_INSTALL_PREFIX}/lib/cmake/opengr/")
 set(include_install_dir "${CMAKE_INSTALL_PREFIX}/include")
 set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
 

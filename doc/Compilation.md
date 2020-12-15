@@ -27,14 +27,13 @@ The libraries and the standalone application require:
 * [Eigen](http://eigen.tuxfamily.org/). The library is automagically downloaded and configured by the cmake process. If you need to force using Eigen from a specific path, call CMAKE with `-DEIGEN3_INCLUDE_DIR=/path/to/eigen`.
 
 IO and tests:
-* [Boost-filesystem](http://www.boost.org/doc/libs/1_57_0/libs/filesystem/doc/index.htm) (optionnal), used to read dataset folders. Requires Boost version: 1.57 or more.
+* [std::filesystem](https://github.com/vector-of-bool/CMakeCM/blob/master/modules/FindFilesystem.cmake) (optionnal), used to read dataset folders. 
 
 ### CMake Options
 Our CMake scripts can be configured using the following options:
 * Compilation rules
     * `OPTION (OpenGR_COMPILE_TESTS "Enable testing" TRUE)`
     * `OPTION (OpenGR_COMPILE_APPS "Compile demo applications (including the Super4PCS standalone)" TRUE)`
-    * `OPTION (IO_USE_BOOST "Use boost::filesystem for texture loading" TRUE)`
     * `OPTION (OpenGR_USE_CHEALPIX "Use Chealpix for orientation filtering (deprecated)" FALSE)` We recommend to keep this option to `FALSE`.
 * Advanced functionalities
     * `+OPTION (OpenGR_USE_WEIGHTED_LCP "Use gaussian weights for point samples when computing LCP" FALSE)` Was implicitely set to `FALSE` in previous release.
@@ -83,9 +82,6 @@ CMake standalone is also supported (and used for Continuous Integration on AppVe
 
 By default, the project can be opened and compiled straight away with no parameter setting.
 
-If you want to compile with Boost support, the dependency directories must be properly configured in Visual Studio.
-They can be set either when calling CMake or globally by configuring Visual Studio (see how-to [here](https://social.msdn.microsoft.com/Forums/vstudio/en-US/a494abb8-3561-4ebe-9eb0-6f644a679862/visual-studio-2010-professional-how-to-add-include-directory-for-all-projects?forum=vcgeneral#7b5ab5f2-f793-4b0e-a18a-679948d12bdd)).
-![](img/VStudio-globalFolders.jpg)
 
 ***
 

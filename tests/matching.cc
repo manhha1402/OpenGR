@@ -65,7 +65,14 @@
 #include <iostream>
 #include <string>
 
-#include <boost/filesystem.hpp>
+#ifndef CXX_FILESYSTEM_HAVE_FS
+#  error std::filesystem is required to compile this file
+#endif
+#if CXX_FILESYSTEM_IS_EXPERIMENTAL
+#  include <experimental/filesystem>
+#else
+#  include <filesystem>
+#endif
 
 #include "testing.h"
 
@@ -149,13 +156,12 @@ extractFilesAndTrFromStandfordConfFile(
         std::vector<Transform>& transforms,
         std::vector<string>& files
         ){
-    using namespace boost::filesystem;
 
-    VERIFY (filesystem::exists(confFilePath) && filesystem::is_regular_file(confFilePath));
+    VERIFY (CXX_FILESYSTEM_NAMESPACE::exists(confFilePath) && CXX_FILESYSTEM_NAMESPACE::is_regular_file(confFilePath));
 
     // extract the working directory for the configuration path
-    const string workingDir = filesystem::path(confFilePath).parent_path().native();
-    VERIFY (filesystem::exists(workingDir));
+    const string workingDir = CXX_FILESYSTEM_NAMESPACE::path(confFilePath).parent_path().string();
+    VERIFY (CXX_FILESYSTEM_NAMESPACE::exists(workingDir));
 
     // read the configuration file and call the matching process
     std::string line;
@@ -180,8 +186,8 @@ extractFilesAndTrFromStandfordConfFile(
                 // skip problematic models
                 if (tokens[1].compare("ArmadilloSide_165.ply") == 0) continue;
 
-                string inputfile = filesystem::path(confFilePath).parent_path().string()+string("/")+tokens[1];
-                VERIFY(filesystem::exists(inputfile) && filesystem::is_regular_file(inputfile));
+                string inputfile = CXX_FILESYSTEM_NAMESPACE::path(confFilePath).parent_path().string()+string("/")+tokens[1];
+                VERIFY(CXX_FILESYSTEM_NAMESPACE::exists(inputfile) && CXX_FILESYSTEM_NAMESPACE::is_regular_file(inputfile));
 
                 // build the Eigen rotation matrix from the rotation and translation stored in the files
                 Eigen::Matrix<Scalar, Dim, 1> tr (

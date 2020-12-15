@@ -7,8 +7,12 @@
 #include <string>
 #include <iterator>
 
-#ifdef USE_BOOST
-#include <boost/filesystem.hpp>
+#ifdef CXX_FILESYSTEM_HAVE_FS
+# if CXX_FILESYSTEM_IS_EXPERIMENTAL
+#   include <experimental/filesystem>
+# else
+#   include <filesystem>
+# endif
 #endif
 
 #define LINE_BUF_SIZE 100
@@ -307,10 +311,8 @@ IOManager::ReadObj(const char *filename,
                    vector<std::string> &mtls)
 {
 
-#ifdef USE_BOOST
-    using namespace boost;
-    const string workingDir = filesystem::path(filename).parent_path().native()
-            + filesystem::path::preferred_separator;
+#ifdef CXX_FILESYSTEM_HAVE_FS
+    const string workingDir { (CXX_FILESYSTEM_NAMESPACE::path(filename).parent_path() / "").string() };
 #endif
 
 
@@ -361,10 +363,10 @@ IOManager::ReadObj(const char *filename,
         v[triangle.c - 1].set_normal(normals[triangle.n3 - 1]);
       }
     } else if (strcmp(ch, "mtllib") == 0) {
-#ifdef USE_BOOST
+#ifdef CXX_FILESYSTEM_HAVE_FS
         mtls.push_back(workingDir + std::string (str + 7));
 #else
-        std::cerr << "Skipping MTL (Boost disabled)" << std::endl;
+        std::cerr << "Skipping MTL (std::filesystem disabled)" << std::endl;
 #endif
     }
   }
@@ -390,7 +392,7 @@ IOManager::ReadObj(const char *filename,
   }
 
 
-#ifdef USE_BOOST
+#ifdef CXX_FILESYSTEM_HAVE_FS
   if (mtls.size()) {
     f.open(mtls[0].c_str(), ios::in);
     while (f && !f.fail()) {

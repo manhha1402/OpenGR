@@ -98,14 +98,15 @@ endif(OpenGR_USE_CHEALPIX)
 #    target_link_libraries(quad_extraction ${Chealpix_LIBS} )
 #endif(OpenGR_USE_CHEALPIX)
 
+
+find_package(Filesystem QUIET)
+
 #############################################
 ## matching
 set(matching_SRCS
     matching.cc)
 
-find_package(Boost 1.54 COMPONENTS system filesystem QUIET)
-if (Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
+if (CXX_FILESYSTEM_HAVE_FS)
     add_executable(matching ${matching_SRCS} ${testing_SRCS})
     add_dependencies(buildtests matching)
     set (matching_subtests 0 1)
@@ -115,13 +116,13 @@ if (Boost_FOUND)
                  COMMAND matching ${subtest_id})
         set_tests_properties ( "matching_${subtest_id}" PROPERTIES TIMEOUT 600) # in seconds
     endforeach()
-    target_link_libraries(matching gr::accel gr::algo gr::utils gr::io ${OpenGRTestsDeps})
-    target_link_libraries(matching ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+    target_link_libraries(matching gr::accel gr::algo gr::utils gr::io ${OpenGRTestsDeps} std::filesystem)
+    target_compile_definitions(matching PUBLIC -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}> -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
     add_dependencies(matching dataset-standford-armadillo dataset-standford-bunny)
     if(OpenGR_USE_CHEALPIX)
         target_link_libraries(matching ${Chealpix_LIBS} )
     endif(OpenGR_USE_CHEALPIX)
-endif (Boost_FOUND)
+endif (CXX_FILESYSTEM_HAVE_FS)
 
 #############################################
 ## matching3pcs
@@ -129,9 +130,7 @@ set(matching3pcs_SRCS
         matching3pcs.cc
         )
 
-find_package(Boost 1.54 COMPONENTS system filesystem QUIET)
-if (Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
+if (CXX_FILESYSTEM_HAVE_FS)
     add_executable(matching3pcs ${matching3pcs_SRCS} ${testing_SRCS})
     add_dependencies(buildtests matching3pcs)
     set (matching3pcs_subtests 0 1)
@@ -141,10 +140,10 @@ if (Boost_FOUND)
                 COMMAND matching3pcs ${subtest_id})
         set_tests_properties ( "matching3pcs_${subtest_id}" PROPERTIES TIMEOUT 600) # in seconds
     endforeach()
-    target_link_libraries(matching3pcs gr::accel gr::algo gr::utils gr::io ${OpenGRTestsDeps})
-    target_link_libraries(matching3pcs ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+    target_link_libraries(matching3pcs gr::accel gr::algo gr::utils gr::io ${OpenGRTestsDeps} std::filesystem)
+    target_compile_definitions(matching3pcs PUBLIC -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}> -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
     add_dependencies(matching3pcs dataset-standford-armadillo dataset-standford-bunny)
     if(OpenGR_USE_CHEALPIX)
         target_link_libraries(matching3pcs ${Chealpix_LIBS} )
     endif(OpenGR_USE_CHEALPIX)
-endif (Boost_FOUND)
+endif (CXX_FILESYSTEM_HAVE_FS)

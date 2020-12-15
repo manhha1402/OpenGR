@@ -24,10 +24,11 @@ jobs:
           - { name: "Ubuntu clang", os: ubuntu-latest, cc: "clang", cxx: "clang++", chealpix: "OFF", icon: "Linux" }
           - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", chealpix: "OFF", icon: "Apple" }
 
-          - { name: "Windows MSVC Chealpix", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", chealpix: "ON", icon: "Windows"}
+          # Testing for Healpix. Deprecated, will be removed without notice. Unsupported OS are disabled.
+          # - { name: "Windows MSVC Chealpix", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", chealpix: "ON", icon: "Windows"}
           - { name: "Ubuntu gcc Chealpix", os: ubuntu-latest, cc: "gcc", cxx: "g++", chealpix: "ON", icon: "Linux" }
           - { name: "Ubuntu clang Chealpix", os: ubuntu-latest, cc: "clang", cxx: "clang++", chealpix: "ON", icon: "Linux" }
-          - { name: "MacOS clang Chealpix", os: macos-latest, cc: "clang", cxx: "clang++", chealpix: "ON", icon: "Apple" }
+          # - { name: "MacOS clang Chealpix", os: macos-latest, cc: "clang", cxx: "clang++", chealpix: "ON", icon: "Apple" }
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
         

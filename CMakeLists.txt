@@ -86,6 +86,7 @@ endif (DL_DATASETS)
 
 if(OpenGR_USE_CHEALPIX)
     include(cmake/ConfigureChealpix.cmake)
+    message(WARNING "Chealpix support is deprecated")
 endif(OpenGR_USE_CHEALPIX)
 
 ## Eigen: automatic configuration:

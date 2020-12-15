@@ -1,5 +1,8 @@
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.15)
 project (OpenGR LANGUAGES CXX VERSION 1.2.0)
+
+# FIXME: wait for cmake 3.19 to be able to set INTERFACE libraries with sources
+cmake_policy(SET CMP0076 OLD)
 
 ################################################################################
 ## User options
@@ -221,13 +224,9 @@ endif(DOXYGEN_FOUND)
 ################################################################################
 
 # add a target allowing to force the installation of the library
-
-set(ForceInstallCommutators "")
-if (MSVC)
-        set(ForceInstallCommutators "/p:Configuration=${CMAKE_BUILD_TYPE}")
-endif(MSVC)
 add_custom_target(ForceOpenGRInstallation
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target install -- ${ForceInstallCommutators}
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} --install ${CMAKE_BINARY_DIR}
     COMMENT "Forcing OpenGR installation")
 
 

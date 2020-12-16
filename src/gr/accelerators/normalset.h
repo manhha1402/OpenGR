@@ -121,7 +121,7 @@ public:
     /// We need to check if epsilon is a power of two and correct it if needed
     const int gridDepth = -std::log2(epsilon);
     _egSize = std::pow(2,gridDepth);
-    _epsilon = 1.f/_egSize;
+    _epsilon = double(1)/double(_egSize);
 
     _grid = std::vector<AngularGrid*> (std::pow(_egSize, dim), NULL);
   }

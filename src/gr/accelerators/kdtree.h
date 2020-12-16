@@ -72,11 +72,14 @@ template<typename _Scalar, typename _Index = int >
 class KdTree
 {
 public:
+    typedef _Scalar Scalar;
+    typedef _Index  Index;
+
     struct KdNode
     {
         union {
             struct {
-                float splitValue;
+                Scalar splitValue;
                 unsigned int firstChildId:24;
                 unsigned int dim:2;
                 unsigned int leaf:1;
@@ -87,9 +90,6 @@ public:
             };
         };
     };
-
-    typedef _Scalar Scalar;
-    typedef _Index  Index;
 
     static constexpr Index invalidIndex() { return -1; }
 
@@ -328,7 +328,7 @@ KdTree<Scalar, Index>::doQueryRestrictedClosestIndex(
     Scalar cl_dist = query.sqdist;
 
     query.nodeStack[0].nodeId = 0;
-    query.nodeStack[0].sq = 0.f;
+    query.nodeStack[0].sq = Scalar(0);
     unsigned int count = 1;
 
     //int nbLoop = 0;
@@ -398,7 +398,7 @@ KdTree<Scalar, Index>::_doQueryDistIndicesWithFunctor(
         Functor f) const
 {
     query.nodeStack[0].nodeId = 0;
-    query.nodeStack[0].sq = 0.f;
+    query.nodeStack[0].sq = Scalar(0);
     unsigned int count = 1;
 
     while (count)

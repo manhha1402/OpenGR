@@ -83,17 +83,16 @@
 using namespace std;
 using namespace gr;
 
-using Scalar = Point3D<float>::Scalar;
-enum {Dim = 3};
-typedef Eigen::Transform<Scalar, Dim, Eigen::Affine> Transform;
+using Scalar = float;
+typedef Eigen::Transform<Scalar, 3, Eigen::Affine> Transform;
 
 const int nbSet = 2;
 
 struct TrVisitorType {
     template <typename Derived>
     inline void operator() (
-            float fraction,
-            float best_LCP,
+            typename Derived::Scalar fraction,
+            typename Derived::Scalar best_LCP,
             const Eigen::MatrixBase<Derived>& /*transformation*/) {
         if (fraction >= 0)
           {
@@ -190,7 +189,7 @@ extractFilesAndTrFromStandfordConfFile(
                 VERIFY(CXX_FILESYSTEM_NAMESPACE::exists(inputfile) && CXX_FILESYSTEM_NAMESPACE::is_regular_file(inputfile));
 
                 // build the Eigen rotation matrix from the rotation and translation stored in the files
-                Eigen::Matrix<Scalar, Dim, 1> tr (
+                Eigen::Matrix<Scalar, 3, 1> tr (
                             std::atof(tokens[2].c_str()),
                             std::atof(tokens[3].c_str()),
                             std::atof(tokens[4].c_str()));
@@ -219,20 +218,20 @@ extractFilesAndTrFromStandfordConfFile(
 
 void test_model(const vector<Transform> &transforms,
                 const vector<string> &files,
-                vector<Point3D<float> > &mergedset,
+                vector<Point3D<Scalar> > &mergedset,
                 int i,
                 int param_i){
     using namespace gr;
-    using SamplerType   = gr::UniformDistSampler<gr::Point3D<float> >;
+    using SamplerType   = gr::UniformDistSampler<gr::Point3D<Scalar> >;
 
     const string input1 = files.at(i-1);
     const string input2 = files.at(i);
 
     cout << "Matching " << input2.c_str() << endl;
 
-    vector<Point3D<float> > set1, set2;
+    vector<Point3D<Scalar> > set1, set2;
     vector<Eigen::Matrix2f> tex_coords1, tex_coords2;
-    vector<typename Point3D<float>::VectorType> normals1, normals2;
+    vector<typename Point3D<Scalar>::VectorType> normals1, normals2;
     vector<tripple> tris1, tris2;
     vector<std::string> mtls1, mtls2;
 
@@ -241,7 +240,7 @@ void test_model(const vector<Transform> &transforms,
     VERIFY(iomanager.ReadObject((char *)input2.c_str(), set2, tex_coords2, normals2, tris2, mtls2));
 
 
-    using MatrixType = Eigen::Matrix<typename Point3D<float>::Scalar, 4, 4>;
+    using MatrixType = Eigen::Matrix<Scalar, 4, 4>;
     // clean only when we have pset to avoid wrong face to point indexation
     if (tris1.size() == 0)
         Utils::CleanInvalidNormals(set1, normals1);
@@ -264,7 +263,7 @@ void test_model(const vector<Transform> &transforms,
     iomanager.WriteObject(iss2.str().c_str(),
                            mergedset,
                            vector<Eigen::Matrix2f>(),
-                           vector<typename Point3D<float>::VectorType>(),
+                           vector<typename Point3D<Scalar>::VectorType>(),
                            vector<tripple>(),
                            vector<std::string>());
 #endif
@@ -279,7 +278,7 @@ void test_model(const vector<Transform> &transforms,
     Scalar score = 0.;
 
     if(use_super4pcs){
-        using MatcherType = gr::Match4pcsBase<gr::FunctorSuper4PCS, gr::Point3D<float>, TrVisitorType, gr::AdaptivePointFilter, gr::AdaptivePointFilter::Options>;
+        using MatcherType = gr::Match4pcsBase<gr::FunctorSuper4PCS, gr::Point3D<Scalar>, TrVisitorType, gr::AdaptivePointFilter, gr::AdaptivePointFilter::Options>;
         using OptionType  = typename MatcherType::OptionsType;
 
         OptionType options;
@@ -305,7 +304,7 @@ void test_model(const vector<Transform> &transforms,
         else
           score = matcher.ComputeTransformation(mergedset, set2, mat, sampler, visitor);
     }else{
-        using MatcherType = gr::Match4pcsBase<gr::Functor4PCS, gr::Point3D<float>, TrVisitorType, gr::AdaptivePointFilter, gr::AdaptivePointFilter::Options>;
+        using MatcherType = gr::Match4pcsBase<gr::Functor4PCS, gr::Point3D<Scalar>, TrVisitorType, gr::AdaptivePointFilter, gr::AdaptivePointFilter::Options>;
         using OptionType  = typename MatcherType::OptionsType;
 
         OptionType options;
@@ -416,7 +415,7 @@ int main(int argc, const char **argv) {
     // a local ICP to avoid error accumulation. So we sum-up the GT transformations,
     // and check our Super4PCS is working well by comparing the estimated transformation
     // matrix and the GT.
-    vector<Point3D<float> > mergedset;
+    vector<Point3D<Scalar> > mergedset;
 
 
     for (int j = 1; j <= nbTests; ++j){

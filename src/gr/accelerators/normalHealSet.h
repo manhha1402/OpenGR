@@ -82,7 +82,7 @@ public:
 #undef VALIDATE_INDICES
 
 private:
-  double _epsilon;
+  Scalar _epsilon;
   int _resolution;
   int _egSize;    //! <\brief Size of the euclidean grid for each dimension
   long _ngLength;  //! ,\brief Length of the normal map from healpix
@@ -114,7 +114,7 @@ private:
 
 
 public:
-  inline IndexedNormalHealSet(double epsilon, int resolution = 4)
+  inline IndexedNormalHealSet(Scalar epsilon, int resolution = 4)
   : _epsilon(epsilon), _resolution(resolution) {
     // We need to check if epsilon is a power of two and correct it if needed
     const int gridDepth = -std::log2(epsilon);
@@ -131,7 +131,7 @@ public:
 
     _ngLength = nside2npix(resolution);
 
-    _epsilon = 1.f/_egSize;
+    _epsilon = Scalar(1)/Scalar(_egSize);
   }
 
   virtual ~IndexedNormalHealSet(){
@@ -200,7 +200,7 @@ public:
   //! Get closest poitns in euclidean an normal space with angular deviation
   void getNeighbors( const PointT& p,
                      const PointT& n,
-                     double alpha,
+                     Scalar alpha,
                      std::vector<unsigned int>&nei);
 
   inline bool isValid() const {
@@ -271,22 +271,22 @@ void
 IndexedNormalHealSet::getNeighbors(
   const PointT& p,
   const PointT& n,
-  double cosAlpha,
+  Scalar cosAlpha,
   std::vector<unsigned int>&nei)
 {
   //ChealMap* grid = getMap(p);
   std::vector<ChealMap*> grids = getEpsilonMaps(p.template cast<Scalar>());
   if ( grids.empty() ) return;
 
-  const double alpha          = std::acos(cosAlpha);
-  //const double perimeter      = double(2) * M_PI * std::atan(alpha);
+  const Scalar alpha          = std::acos(cosAlpha);
+  //const Scalar perimeter      = Scalar(2) * M_PI * std::atan(alpha);
   const unsigned int nbSample = std::pow(2,_resolution+1);
-  const double angleStep      = double(2) * M_PI / double(nbSample);
+  const Scalar angleStep      = Scalar(2) * M_PI / Scalar(nbSample);
 
 
-  const double sinAlpha       = std::sin(alpha);
+  const Scalar sinAlpha       = std::sin(alpha);
 
-  Eigen::Quaternion<double> q;
+  Eigen::Quaternion<Scalar> q;
   q.setFromTwoVectors(Point(0.,0.,1.), n.template cast<Scalar>());
 
   // store a pair with
@@ -298,7 +298,7 @@ IndexedNormalHealSet::getNeighbors(
 
   // Do the rendering independently of the content
   for(unsigned int a = 0; a != nbSample; a++){
-    double theta    = double(a) * angleStep;
+    Scalar theta    = Scalar(a) * angleStep;
     const Point dir = ( q * Point(sinAlpha*std::cos(theta),
                               sinAlpha*std::sin(theta),
                               cosAlpha ) ).normalized();

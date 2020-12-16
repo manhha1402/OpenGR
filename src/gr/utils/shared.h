@@ -58,16 +58,17 @@ namespace gr {
 #ifdef PARSED_BY_DOXYGEN
 struct ExternalPoint;
 
+template<typename _Scalar>
 struct PointConcept {
     public:
     /*! \brief Defines the ambient space dimension */
     enum {Dim = 3};
     
     /*! \brief Defines the type used ton encode scalar values */
-    typedef float Scalar;
+    using Scalar = _Scalar;
 
     /*! \brief Defines type used to encode vector values */
-    typedef Eigen::Matrix<Scalar, Dim, 1> VectorType;
+    using VectorType = Eigen::Matrix<Scalar, Dim, 1>;
     
     /*! \brief Constructor using external point type that is wrapped */
     inline PointConcept(const ExternalPoint&) { }
@@ -83,10 +84,11 @@ struct PointConcept {
 template<typename _Scalar>
 class Point3D
 #ifdef PARSED_BY_DOXYGEN
-    : public PointConcept
+    : public PointConcept<_Scalar>
 #endif
 {
  public:
+  enum {Dim = 3};
   using Scalar = _Scalar;
   using VectorType = Eigen::Matrix<Scalar, 3, 1>;
 

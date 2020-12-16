@@ -131,7 +131,7 @@ public:
 
     _ngLength = nside2npix(resolution);
 
-    _epsilon = 1.f/_egSize;
+    _epsilon = double(1)/double(_egSize);
   }
 
   virtual ~IndexedNormalHealSet(){

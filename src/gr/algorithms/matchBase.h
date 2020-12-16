@@ -63,7 +63,7 @@ namespace gr{
 
 struct DummyTransformVisitor {
     template <typename Derived>
-    inline void operator() (float, float, const Eigen::MatrixBase<Derived>&) const {}
+    inline void operator() (typename Derived::Scalar, typename Derived::Scalar, const Eigen::MatrixBase<Derived>&) const {}
     constexpr bool needsGlobalTransformation() const { return false; }
 };
 

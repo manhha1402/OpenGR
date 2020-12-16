@@ -59,7 +59,7 @@ static Scalar GetRoundedEpsilonValue(Scalar epsilon, int* lvl = nullptr) {
     if (lvl != nullptr) *lvl = lvlMax;
 
     // Refine epsilon by the closest conservative values
-    return 1.f/pow(2,lvlMax);
+    return double(1)/double(pow(2,lvlMax));
 }
 
 //! \brief Extract pairs of points by rasterizing primitives and collect points
@@ -142,8 +142,8 @@ IntersectionFunctor<Primitive, Point, dim, Scalar>::process(
   // Buid root node in the child node, will be copied to the current nodes
   childNodes->push_back(Node::buildUnitRootNode(Q, functor.ids));
 
-  Scalar edgeLength = 0.f;
-  Scalar edgeHalfLength = 0.f;
+  Scalar edgeLength { 0 };
+  Scalar edgeHalfLength { 0 };
 
   // First Loop
   while (clvl != lvlMax-1){
@@ -151,8 +151,8 @@ IntersectionFunctor<Primitive, Point, dim, Scalar>::process(
     if (childNodes->empty())
       break;
 
-    edgeLength     = Scalar(1.f)/pow(2, clvl);
-    edgeHalfLength = edgeLength/Scalar(2.f);
+    edgeLength     = Scalar(1)/pow(2, clvl);
+    edgeHalfLength = edgeLength/Scalar(2);
 
     // swap pointers
     std::swap(nodes, childNodes);
@@ -195,7 +195,7 @@ IntersectionFunctor<Primitive, Point, dim, Scalar>::process(
     // add childs
     for(typename NodeContainer::const_iterator itN = childNodes->begin();
         itN != childNodes->end(); itN++){
-      if ((*itP).intersect((*itN).center(), epsilon*2.f)){
+      if ((*itP).intersect((*itN).center(), epsilon*Scalar(2))){
 
         functor.beginPrimitiveCollect(pId);
         for(unsigned int j = 0; j!= (unsigned int)((*itN).rangeLength()); j++){

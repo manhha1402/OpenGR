@@ -37,7 +37,7 @@ struct LCPMetric {
     template <typename Range>
     inline Scalar operator()( const gr::KdTree<Scalar> & ref,
                               const Range& target,
-                              const Eigen::Ref<const Eigen::MatrixXf>& mat,
+                              const Eigen::Ref<const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>>& mat,
                               Scalar terminate_value = Scalar( 0 ))
     {
         using RangeQuery = typename gr::KdTree<Scalar>::template RangeQuery<>;
@@ -76,7 +76,7 @@ struct WeightedLCPMetric {
     template <typename Range>
     inline Scalar operator()( const gr::KdTree<Scalar> & ref,
                               const Range& target,
-                              const Eigen::Ref<const Eigen::MatrixXf>& mat,
+                              const Eigen::Ref<const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>>& mat,
                               Scalar terminate_value = Scalar( 0 ))
     {
         using RangeQuery = typename gr::KdTree<Scalar>::template RangeQuery<>;

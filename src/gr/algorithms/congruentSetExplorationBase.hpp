@@ -160,7 +160,7 @@ CongruentSetExplorationBase<Traits, PointType, TransformVisitor, PairFilteringFu
         std::chrono::duration_cast<std::chrono::seconds>
         (system_clock::now() - t0).count() /
                           MatchBaseType::options_.max_time_seconds;
-    Scalar fraction = std::max(fraction_time, fraction_try);
+    Scalar fraction = (std::max)(fraction_time, fraction_try);
 
     if (v.needsGlobalTransformation()) {
       getGlobalTransform(transformation);

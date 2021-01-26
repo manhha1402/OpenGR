@@ -55,7 +55,7 @@ namespace gr {
         typename PointType::Scalar &invariant2,
         int &id1, int &id2, int &id3, int &id4) {
 
-        Scalar min_distance = std::numeric_limits<Scalar>::max();
+        Scalar min_distance = (std::numeric_limits<Scalar>::max)();
         int best1, best2, best3, best4;
         best1 = best2 = best3 = best4 = -1;
         for (int i = 0; i < 4; ++i) {
@@ -151,7 +151,7 @@ namespace gr {
                 Scalar C =
                         (-x2 * y1 + x3 * y1 + x1 * y2 - x3 * y2 - x1 * y3 + x2 * y3) / denom;
                 base4 = -1;
-                Scalar best_distance = std::numeric_limits<Scalar>::max();
+                Scalar best_distance = (std::numeric_limits<Scalar>::max)();
                 // Go over all points in P.
                 const Scalar too_small = std::pow(MatchBaseType::max_base_diameter_ * kBaseTooSmall, 2);
                 for (unsigned int i = 0; i < MatchBaseType::sampled_P_3D_.size(); ++i) {

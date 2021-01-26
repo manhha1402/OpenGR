@@ -32,7 +32,7 @@ namespace Utils{
 template <typename Scalar>
 struct LCPMetric {
     /// Support size of the LCP
-    Scalar epsilon_ = std::numeric_limits<Scalar>::max();
+    Scalar epsilon_ = (std::numeric_limits<Scalar>::max)();
 
     template <typename Range>
     inline Scalar operator()( const gr::KdTree<Scalar> & ref,
@@ -71,7 +71,7 @@ struct LCPMetric {
 template <typename Scalar>
 struct WeightedLCPMetric {
     /// Support size of the LCP
-    Scalar epsilon_ = std::numeric_limits<Scalar>::max();
+    Scalar epsilon_ = (std::numeric_limits<Scalar>::max)();
 
     template <typename Range>
     inline Scalar operator()( const gr::KdTree<Scalar> & ref,

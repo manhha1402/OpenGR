@@ -99,7 +99,7 @@ struct PairFilterConcept {
                 const double second_normal_angle = (q.normal() + p.normal()).norm();
                 // Take the smaller normal distance.
                 const Scalar first_norm_distance =
-                        std::min(std::abs(first_normal_angle - pair_normals_angle),
+                        (std::min)(std::abs(first_normal_angle - pair_normals_angle),
                                  std::abs(second_normal_angle - pair_normals_angle));
                 // Verify appropriate angle between normals and distance.
 

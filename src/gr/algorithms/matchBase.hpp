@@ -127,7 +127,7 @@ MATCH_BASE_TYPE::ComputeRigidTransformation(const Coordinates& ref,
         bool computeScale ) const {
     static const Scalar pi = std::acos(-1);
 
-    rms_ = std::numeric_limits<Scalar>::max();
+    rms_ = (std::numeric_limits<Scalar>::max)();
 
     Scalar kSmallNumber = 1e-6;
 
@@ -155,7 +155,7 @@ MATCH_BASE_TYPE::ComputeRigidTransformation(const Coordinates& ref,
         const Scalar ratioMean = (ratio1+ratio2)/Scalar(2.);            // mean of the two
 
         if ( ratioDev > Scalar(0.1) )
-            return std::numeric_limits<Scalar>::max();
+            return (std::numeric_limits<Scalar>::max)();
 
 
         //Log<LogLevel::Verbose>( ratio1, " ", ratio2, " ", ratioDev, " ", ratioMean);
@@ -169,23 +169,23 @@ MATCH_BASE_TYPE::ComputeRigidTransformation(const Coordinates& ref,
     }
 
     VectorType vector_p1 = p1 - p0;
-    if (vector_p1.squaredNorm() == 0) return std::numeric_limits<Scalar>::max();
+    if (vector_p1.squaredNorm() == 0) return (std::numeric_limits<Scalar>::max)();
     vector_p1.normalize();
     VectorType vector_p2 = (p2 - p0) - ((p2 - p0).dot(vector_p1)) * vector_p1;
-    if (vector_p2.squaredNorm() == 0) return std::numeric_limits<Scalar>::max();
+    if (vector_p2.squaredNorm() == 0) return (std::numeric_limits<Scalar>::max)();
     vector_p2.normalize();
     VectorType vector_p3 = vector_p1.cross(vector_p2);
-    if (vector_p3.squaredNorm() == 0) return std::numeric_limits<Scalar>::max();
+    if (vector_p3.squaredNorm() == 0) return (std::numeric_limits<Scalar>::max)();
     vector_p3.normalize();
 
     VectorType vector_q1 = q1 - q0;
-    if (vector_q1.squaredNorm() == 0) return std::numeric_limits<Scalar>::max();
+    if (vector_q1.squaredNorm() == 0) return (std::numeric_limits<Scalar>::max)();
     vector_q1.normalize();
     VectorType vector_q2 = (q2 - q0) - ((q2 - q0).dot(vector_q1)) * vector_q1;
-    if (vector_q2.squaredNorm() == 0) return std::numeric_limits<Scalar>::max();
+    if (vector_q2.squaredNorm() == 0) return (std::numeric_limits<Scalar>::max)();
     vector_q2.normalize();
     VectorType vector_q3 = vector_q1.cross(vector_q2);
-    if (vector_q3.squaredNorm() == 0) return std::numeric_limits<Scalar>::max();
+    if (vector_q3.squaredNorm() == 0) return (std::numeric_limits<Scalar>::max)();
     vector_q3.normalize();
 
     //cv::Mat rotation = cv::Mat::eye(3, 3, CV_64F);
@@ -291,7 +291,7 @@ void MATCH_BASE_TYPE::init(const InputRange1& P,
         std::vector<int> indices(uniform_Q.size());
         std::iota( std::begin(indices), std::end(indices), 0 );
         std::shuffle(indices.begin(), indices.end(), randomGenerator_);
-        size_t nbSamples = std::min(uniform_Q.size(), options_.sample_size);
+        size_t nbSamples = (std::min)(uniform_Q.size(), options_.sample_size);
         indices.resize(nbSamples);
 
         // using the indices, copy elements from uniform_Q to sampled_P_3D_

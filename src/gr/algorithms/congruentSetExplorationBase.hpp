@@ -239,10 +239,12 @@ bool CongruentSetExplorationBase<Traits, PointType, TransformVisitor, PairFilter
     std::atomic<size_t> nbCongruentAto(0);
 
     Coordinates congruent_candidate;
+    bool found = false;
 #ifdef OpenGR_USE_OPENMP
 #pragma omp parallel for num_threads(omp_nthread_congruent_)
 #endif
     for (int i = 0; i < int(set.size()); ++i) {
+      if (found) continue;
         const auto& congruent_ids = set[i];
         for (int j = 0; j!= Traits::size(); ++j)
             congruent_candidate[j] = &MatchBaseType::sampled_Q_3D_[congruent_ids[j]];
@@ -348,7 +350,7 @@ bool CongruentSetExplorationBase<Traits, PointType, TransformVisitor, PairFilter
                 }
                 // Terminate if we have the desired LCP already.
                 if (lcp > MatchBaseType::options_.getTerminateThreshold()){
-                    continue;
+                    found = true;
                   }
             }
           } else {

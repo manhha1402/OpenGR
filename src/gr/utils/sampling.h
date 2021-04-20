@@ -80,10 +80,10 @@ private:
         using Scalar = typename Point::Scalar;
 
     private:
-        const uint64_t MAGIC1 = 100000007;
-        const uint64_t MAGIC2 = 161803409;
-        const uint64_t MAGIC3 = 423606823;
-        const uint64_t NO_DATA = 0xffffffffu;
+        const uint64_t magic1 = 100000007;
+        const uint64_t magic2 = 161803409;
+        const uint64_t magic3 = 423606823;
+        const uint64_t no_data = 0xffffffffu;
         Scalar voxel_;
         Scalar scale_;
         using VoxelType = std::array<int,3>;
@@ -94,7 +94,7 @@ private:
         HashTable(int maxpoints, Scalar voxel) : voxel_(voxel), scale_(1.0f / voxel) {
             uint64_t n = maxpoints;
             voxels_.resize(n);
-            data_.resize(n, NO_DATA);
+            data_.resize(n, no_data);
         }
         template <typename Point>
         uint64_t& operator[](const Point& p) {
@@ -103,9 +103,9 @@ private:
                          int(floor(p.pos()(1) * scale_)),
                          int(floor(p.pos()(2) * scale_))};
 
-            uint64_t key = (MAGIC1 * c[0] + MAGIC2 * c[1] + MAGIC3 * c[2]) % data_.size();
+            uint64_t key = (magic1 * c[0] + magic2 * c[1] + magic3 * c[2]) % data_.size();
             while (1) {
-                if (data_[key] == NO_DATA) {
+                if (data_[key] == no_data) {
                     voxels_[key] = c;
                     break;
                 } else if (voxels_[key] == c) {

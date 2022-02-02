@@ -22,6 +22,7 @@ OPTION (OpenGR_USE_WEIGHTED_LCP "Use gaussian weights for point samples when com
 ################################################################################
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(SRC_DIR ${PROJECT_SOURCE_DIR}/src/)
+set(THIRDPARTY_DIR ${PROJECT_SOURCE_DIR}/3rdparty)
 set(ASSETS_DIR ${PROJECT_SOURCE_DIR}/assets)
 set(SCRIPTS_DIR ${PROJECT_SOURCE_DIR}/scripts)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -100,7 +101,7 @@ if( NOT EIGEN3_INCLUDE_DIR )
     find_package(Eigen3 QUIET)
     if( (NOT Eigen3_FOUND) OR EIGEN_VERSION_NUMBER VERSION_LESS 3.3 )
 
-        set(EIGEN3_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/3rdparty/Eigen")
+        set(EIGEN3_INCLUDE_DIR "${THIRDPARTY_DIR}/Eigen")
 
         if( NOT EXISTS ${EIGEN3_INCLUDE_DIR}/signature_of_eigen3_matrix_library )
             execute_process(COMMAND git submodule update --init -- ${EIGEN3_INCLUDE_DIR}
@@ -116,7 +117,7 @@ message(STATUS "Eigen3 root path: ${EIGEN3_INCLUDE_DIR}")
 ##  2. if any, and version >= 3.3.x, use system version
 ##  3. otherwise, download (if required) and use submodule
 if( NOT STB_INCLUDE_DIR )
-    set(STB_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/3rdparty/stb")
+    set(STB_INCLUDE_DIR "${THIRDPARTY_DIR}/stb")
 
     if( NOT EXISTS ${STB_INCLUDE_DIR}/stb.h )
         execute_process(COMMAND git submodule update --init -- ${STB_INCLUDE_DIR}

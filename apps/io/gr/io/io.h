@@ -138,5 +138,4 @@ private:
 }; // class IOMananger
 
 #include "io.hpp"
-#include "io_ply.h"
 

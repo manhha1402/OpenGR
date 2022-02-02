@@ -67,33 +67,33 @@ IOManager::WritePly(
   const PointRange &v,
   const NormalRange &normals)
 {
+    using Scalar = typename PointRange::value_type::Scalar;
     happly::PLYData plyOut;
 
     // Compute properties
     bool useNormals = normals.size() == v.size();
     // we check if we have colors by looking if the first rgb vector is void
     auto has_color = [](const typename PointRange::value_type& p ) {
-        using Scalar = typename PointRange::value_type::Scalar;
         return p.rgb().squaredNorm() > Scalar(0.001);
     };
     bool useColors = std::find_if(v.begin(), v.end(),has_color) != v.end();
 
     // Generate output buffers
     // Read all elements in data, correct their depth and print them in the file
-    std::vector<float>x,y,z,nx,ny,nz;
+    std::vector<Scalar>x,y,z,nx,ny,nz;
     std::vector<unsigned char>red, green, blue;
     typename NormalRange::const_iterator normal_it = normals.cbegin();
     for(const auto& p : v)
     {
-        x.push_back( float(p.pos()(0)) );
-        y.push_back( float(p.pos()(1)) );
-        z.push_back( float(p.pos()(2)) );
+        x.push_back( Scalar(p.pos()(0)) );
+        y.push_back( Scalar(p.pos()(1)) );
+        z.push_back( Scalar(p.pos()(2)) );
 
         if(useNormals) // size check is done earlier
         {
-            nx.push_back( float((*normal_it)(0)) );
-            ny.push_back( float((*normal_it)(1)) );
-            nz.push_back( float((*normal_it)(2)) );
+            nx.push_back( Scalar((*normal_it)(0)) );
+            ny.push_back( Scalar((*normal_it)(1)) );
+            nz.push_back( Scalar((*normal_it)(2)) );
             ++normal_it;
         }
 
@@ -108,14 +108,14 @@ IOManager::WritePly(
     // generate output file structure and set buffers
     plyOut.addElement("vertex", v.size());
     auto& el = plyOut.getElement("vertex");
-    el.template addProperty<float>("x", x);
-    el.template addProperty<float>("y", y);
-    el.template addProperty<float>("z", z);
+    el.template addProperty<Scalar>("x", x);
+    el.template addProperty<Scalar>("y", y);
+    el.template addProperty<Scalar>("z", z);
 
     if(useNormals) {
-        el.template addProperty<float>("nx", nx);
-        el.template addProperty<float>("ny", ny);
-        el.template addProperty<float>("nz", nz);
+        el.template addProperty<Scalar>("nx", nx);
+        el.template addProperty<Scalar>("ny", ny);
+        el.template addProperty<Scalar>("nz", nz);
     }
 
     if(useColors) {
@@ -422,4 +422,69 @@ IOManager::ReadObj(const char *filename,
 
   if (v.size() == 0) return false;
   return true;
+}
+
+
+template<typename Scalar>
+bool
+IOManager::ReadPly(const char *filename,
+                   vector<Point3D<Scalar> > &v,
+                   vector<typename Point3D<Scalar>::VectorType> &normals){
+
+
+    // Construct a data object by reading from file
+    happly::PLYData plyIn(filename);
+    if( plyIn.hasElement("vertex") )
+    {
+        auto& el = plyIn.getElement("vertex");
+        std::vector<std::string> names = el.getPropertyNames();
+
+        std::vector<Scalar> x, y, z, nx, ny, nz;
+        std::vector<unsigned char> red, green, blue;
+
+        if( el.hasProperty("x") && el.hasProperty("y") && el.hasProperty("z") )
+        {
+            x = el.getProperty<Scalar>("x");
+            y = el.getProperty<Scalar>("y");
+            z = el.getProperty<Scalar>("z");
+            v.resize( x.size() );
+        }
+
+        bool hasNormals = false;
+        if( el.hasProperty("nx") && el.hasProperty("ny") && el.hasProperty("nz") )
+        {
+            nx = el.getProperty<Scalar>("nx");
+            ny = el.getProperty<Scalar>("ny");
+            nz = el.getProperty<Scalar>("nz");
+            normals.resize( nx.size() );
+            hasNormals = true;
+        }
+
+        bool hasColor = false;
+        if( el.hasProperty("red") && el.hasProperty("green") && el.hasProperty("blue") )
+        {
+            red   = el.getProperty<unsigned char>("red");
+            green = el.getProperty<unsigned char>("green");
+            blue  = el.getProperty<unsigned char>("blue");
+            hasColor = true;
+        }
+
+        const unsigned int size = v.size();
+        using VectorType = typename Point3D<Scalar>::VectorType;
+        for( unsigned int i = 0; i < size; ++i){
+            auto& vv = v[i];
+            vv.pos() = {x[i], y[i], z[i]};
+            if( hasNormals ){
+                vv.set_normal( {nx[i], ny[i], nz[i]} );
+                normals[i] = vv.normal();
+            }
+            if( hasColor ){
+                vv.set_rgb( {Scalar(red[i]), Scalar(green[i]), Scalar(blue[i])} );
+            }
+        }
+    }
+    else
+        return false;
+
+    return true;
 }

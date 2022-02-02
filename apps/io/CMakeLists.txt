@@ -7,8 +7,23 @@ set(io_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 file(GLOB_RECURSE io_sources ${io_ROOT}/*.cc)
 file(GLOB_RECURSE io_headers ${io_ROOT}/*.h ${io_ROOT}/*.hpp)
 
+## Happly: automatic configuration:
+##  1. if HAPPLY_INCLUDE_DIR is set, use it directly
+##  2. if any, use system version
+##  3. otherwise, download (if required) and use submodule
+if( NOT HAPPLY_INCLUDE_DIR )
+    set(HAPPLY_INCLUDE_DIR "${THIRDPARTY_DIR}/happly")
+
+    if( NOT EXISTS ${HAPPLY_INCLUDE_DIR}/happly.h )
+        execute_process(COMMAND git submodule update --init -- ${HAPPLY_INCLUDE_DIR}
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    endif( NOT EXISTS ${HAPPLY_INCLUDE_DIR}/happly.h )
+endif( NOT HAPPLY_INCLUDE_DIR )
+include_directories(${HAPPLY_INCLUDE_DIR})
+message(STATUS "HAPPLY root path: ${HAPPLY_INCLUDE_DIR}")
+
 add_library(opengr_apps_io STATIC ${io_sources} ${io_headers})
-target_include_directories(opengr_apps_io PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+target_include_directories(opengr_apps_io PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${HAPPLY_INCLUDE_DIR})
 
 find_package(Filesystem QUIET)
 if(CXX_FILESYSTEM_HAVE_FS)

@@ -43,9 +43,10 @@ public:
   };
 
 public:
-  // Obj read/write simple functions.
+  /// Obj read/write simple functions.
+  /// \warning For ply files: loads only vertices positions and attributes (faces are ignored)
   template<typename Scalar>
-  bool ReadObject(const char *name,
+  bool ReadObject(const std::string& name,
                   std::vector<gr::Point3D<Scalar> > &v,
                   std::vector<Eigen::Matrix2f> &tex_coords,
                   std::vector<typename gr::Point3D<Scalar>::VectorType> &normals,
@@ -57,7 +58,7 @@ public:
            typename NormalRange,
            typename TrisRange,
            typename MTLSRange>
-  bool WriteObject(const char *name,
+  bool WriteObject(const std::string& name,
                    const PointRange &v,
                    const TextCoordRange &tex_coords,
                    const NormalRange &normals,
@@ -70,7 +71,7 @@ public:
 private:
   template<typename Scalar>
   bool
-  ReadPly(const char *name,
+  ReadPly(const std::string& name,
           std::vector<gr::Point3D<Scalar> > &v,
           std::vector<typename gr::Point3D<Scalar>::VectorType> &normals);
 
@@ -87,12 +88,12 @@ private:
    */
   template<typename Scalar>
   bool
-  ReadPtx(const char *name,
+  ReadPtx(const std::string& name,
           std::vector<gr::Point3D<Scalar> > &v);
 
   template<typename Scalar>
   bool
-  ReadObj(const char *name,
+  ReadObj(const std::string& name,
           std::vector<gr::Point3D<Scalar> > &v,
           std::vector<Eigen::Matrix2f> &tex_coords,
           std::vector<typename gr::Point3D<Scalar>::VectorType> &normals,
@@ -101,7 +102,7 @@ private:
 
   template<typename PointRange, typename NormalRange>
   bool
-  WritePly(std::string name,
+  WritePly(const std::string& name,
            const PointRange &v,
            const NormalRange &normals);
 
@@ -111,7 +112,7 @@ private:
            typename TrisRange,
            typename MTLSRange>
   bool
-  WriteObj(std::string name,
+  WriteObj(const std::string& name,
            const PointRange &v,
            const TexCoordRange &tex_coords,
            const NormalRange &normals,
@@ -132,7 +133,7 @@ private:
   /// Limits dependency on stb just to compilation of the library by compiling
   /// required stbi methods to object files at library compilation.
   unsigned char*
-  stbi_load_(char const *filename, int *x, int *y, int *comp, int req_comp);
+  stbi_load_(const std::string& name, int *x, int *y, int *comp, int req_comp);
 
   void
   stbi_image_free_(void *retval_from_stbi_load);

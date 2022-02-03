@@ -65,9 +65,9 @@ IOManager::formatPolyworksMatrix(
 /// Limits dependency on stb just to compilation of the library
 ////////////////////////////////////////////////////////////////////////////////
 unsigned char*
-IOManager::stbi_load_(char const *filename, int *x, int *y, int *comp, int req_comp)
+IOManager::stbi_load_(const string& filename, int *x, int *y, int *comp, int req_comp)
 {
-    return stbi_load(filename, x, y, comp, req_comp);
+    return stbi_load(filename.c_str(), x, y, comp, req_comp);
 }
 
 void

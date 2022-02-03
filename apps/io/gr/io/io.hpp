@@ -31,7 +31,7 @@ template<typename PointRange,
          typename TrisRange,
          typename MTLSRange>
 bool IOManager::WriteObject(
-  const char *name,
+  const string& name,
   const PointRange &v,
   const TextCoordRange &tex_coords,
   const NormalRange &normals,
@@ -63,7 +63,7 @@ bool IOManager::WriteObject(
 template<typename PointRange, typename NormalRange>
 bool
 IOManager::WritePly(
-  std::string filename,
+  const std::string& filename,
   const PointRange &v,
   const NormalRange &normals)
 {
@@ -134,7 +134,7 @@ template<typename PointRange,
          typename TrisRange,
          typename MTLSRange>
 bool
-IOManager::WriteObj(std::string filename,
+IOManager::WriteObj(const std::string& filename,
          const PointRange &v,
          const TexCoordRange &tex_coords,
          const NormalRange &normals,
@@ -197,7 +197,7 @@ IOManager::WriteObj(std::string filename,
 ////////////////////////////////////////////////////////////////////////////////
 template<typename Scalar>
 bool
-IOManager::ReadObject(const char *name,
+IOManager::ReadObject(const std::string& name,
            vector<Point3D<Scalar> > &v,
            vector<Eigen::Matrix2f> &tex_coords,
            vector<typename Point3D<Scalar>::VectorType> &normals,
@@ -221,7 +221,7 @@ IOManager::ReadObject(const char *name,
 }
 
 template<typename Scalar>
-bool IOManager::ReadPtx(const char *filename, vector<Point3D<Scalar> > &vertex)
+bool IOManager::ReadPtx(const std::string& filename, vector<Point3D<Scalar> > &vertex)
 {
     fstream f(filename, ios::in);
     if (!f || f.fail()) {
@@ -280,7 +280,7 @@ bool IOManager::ReadPtx(const char *filename, vector<Point3D<Scalar> > &vertex)
 
 template<typename Scalar>
 bool
-IOManager::ReadObj(const char *filename,
+IOManager::ReadObj(const std::string& filename,
                    vector<Point3D<Scalar> > &v,
                    vector<Eigen::Matrix2f> &tex_coords,
                    vector<typename Point3D<Scalar>::VectorType> &normals,
@@ -425,7 +425,7 @@ IOManager::ReadObj(const char *filename,
 
 template<typename Scalar>
 bool
-IOManager::ReadPly(const char *filename,
+IOManager::ReadPly(const std::string& filename,
                    vector<Point3D<Scalar> > &v,
                    vector<typename Point3D<Scalar>::VectorType> &normals){
 

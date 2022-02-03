@@ -74,7 +74,10 @@ struct PointConcept {
     inline PointConcept(const ExternalPoint&) { }
     
     /*! \brief Read access to the position property */
-    inline const VectorType& pos() const { }  
+    inline const VectorType& pos() const { }
+
+    /*! \brief Indicates if the instance contains a valid color */
+    inline bool hasColor() const { }
 };
 #endif
 
@@ -118,7 +121,7 @@ class Point3D
   inline void normalize() {
     normal_.normalize();
   }
-  inline bool hasColor() const { return rgb_.squaredNorm() > Scalar(0.001); }
+  inline bool hasColor() const { return (rgb_.array() > Scalar(0)).all(); } // invalid colors are encoded with -1
 
   Scalar& x() { return pos_.coeffRef(0); }
   Scalar& y() { return pos_.coeffRef(1); }
@@ -128,7 +131,12 @@ class Point3D
   Scalar y() const { return pos_.coeff(1); }
   Scalar z() const { return pos_.coeff(2); }
 
-
+  bool operator==(const Point3D<Scalar>& other) const
+  {
+      return pos_.isApprox( other.pos_ ) &&
+             normal_.isApprox( other.normal_ ) &&
+             rgb_.isApprox( other.rgb_ );
+  }
 
  private:
   /// Normal.

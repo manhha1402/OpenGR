@@ -73,9 +73,7 @@ IOManager::WritePly(
     // Compute properties
     bool useNormals = normals.size() == v.size();
     // we check if we have colors by looking if the first rgb vector is void
-    auto has_color = [](const typename PointRange::value_type& p ) {
-        return p.rgb().squaredNorm() > Scalar(0.001);
-    };
+    auto has_color = [](const typename PointRange::value_type& p ) { return p.hasColor(); };
     bool useColors = std::find_if(v.begin(), v.end(),has_color) != v.end();
 
     // Generate output buffers

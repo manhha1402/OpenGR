@@ -24,12 +24,12 @@ struct PointAdapter {
         m_color (Eigen::Map<const VectorType >( p.color ))
     { }
 
-
     inline const Eigen::Map< const VectorType >& pos()    const { return m_pos; }
     inline const Eigen::Map< const VectorType >& normal() const { return m_normal; }
     inline const Eigen::Map< const VectorType >& color()  const { return m_color; }
     inline const Eigen::Map< const VectorType >& rgb()    const { return m_color; }
 
+    inline bool hasColor() const { return (m_color.array() > Scalar(0)).all(); } // invalid colors are encoded with -1
 };
 
 }

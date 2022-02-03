@@ -17,17 +17,23 @@
 
 
 struct tripple {
-  int a;
-  int b;
-  int c;
-  int n1;
-  int n2;
-  int n3;
-  int t1;
-  int t2;
-  int t3;
-  tripple() {}
-  tripple(int _a, int _b, int _c) : a(_a), b(_b), c(_c) {}
+  int a {-1};
+  int b {-1};
+  int c {-1};
+  int n1 {-1};
+  int n2 {-1};
+  int n3 {-1};
+  int t1 {-1};
+  int t2 {-1};
+  int t3 {-1};
+  inline tripple() {}
+  inline tripple(int _a, int _b, int _c) : a(_a), b(_b), c(_c) {}
+  // defaulted comparison operators are a C++20 extension, so we need to write it explicitely
+  inline bool operator==(const tripple& o) const {
+      return a==o.a   && b==o.b   && c==o.c &&
+             n1==o.n1 && n2==o.n2 && n3==o.n3 &&
+             t1==o.t1 && t2==o.t2 && t3==o.t3;
+  }
 };
 
 class IOManager{

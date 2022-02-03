@@ -66,11 +66,13 @@ SPACER="------------------------------"
 echo ${SPACER}
 echo "Running Super4PCS"
 time -p ../bin/Super4PCS -i ../assets/hippo1.obj ../assets/hippo2.obj -o 0.7 -d 0.01 -t 1000 -n 200 -r super4pcs_fast.obj -m mat_super4pcs_fast.txt
+time -p ../bin/Super4PCS -i ../assets/hippo1.ply ../assets/hippo2.ply -o 0.7 -d 0.01 -t 1000 -n 200 -r super4pcs_fast.ply -m mat_super4pcs_fast.txt
 
 
 echo ${SPACER}
 echo "Running 4PCS"
 time -p ../bin/Super4PCS -i ../assets/hippo1.obj ../assets/hippo2.obj -o 0.7 -d 0.01 -t 1000 -n 200 -r      4pcs_fast.obj -m      mat_4pcs_fast.txt -x
+time -p ../bin/Super4PCS -i ../assets/hippo1.ply ../assets/hippo2.ply -o 0.7 -d 0.01 -t 1000 -n 200 -r      4pcs_fast.ply -m      mat_4pcs_fast.txt -x
 
 
 if [ -f ../bin/OpenGR-PCLWrapper ]; then

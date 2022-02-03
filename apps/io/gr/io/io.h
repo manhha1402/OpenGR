@@ -17,17 +17,23 @@
 
 
 struct tripple {
-  int a;
-  int b;
-  int c;
-  int n1;
-  int n2;
-  int n3;
-  int t1;
-  int t2;
-  int t3;
-  tripple() {}
-  tripple(int _a, int _b, int _c) : a(_a), b(_b), c(_c) {}
+  int a {-1};
+  int b {-1};
+  int c {-1};
+  int n1 {-1};
+  int n2 {-1};
+  int n3 {-1};
+  int t1 {-1};
+  int t2 {-1};
+  int t3 {-1};
+  inline tripple() {}
+  inline tripple(int _a, int _b, int _c) : a(_a), b(_b), c(_c) {}
+  // defaulted comparison operators are a C++20 extension, so we need to write it explicitely
+  inline bool operator==(const tripple& o) const {
+      return a==o.a   && b==o.b   && c==o.c &&
+             n1==o.n1 && n2==o.n2 && n3==o.n3 &&
+             t1==o.t1 && t2==o.t2 && t3==o.t3;
+  }
 };
 
 class IOManager{
@@ -37,9 +43,10 @@ public:
   };
 
 public:
-  // Obj read/write simple functions.
+  /// Obj read/write simple functions.
+  /// \warning For ply files: loads only vertices positions and attributes (faces are ignored)
   template<typename Scalar>
-  bool ReadObject(const char *name,
+  bool ReadObject(const std::string& name,
                   std::vector<gr::Point3D<Scalar> > &v,
                   std::vector<Eigen::Matrix2f> &tex_coords,
                   std::vector<typename gr::Point3D<Scalar>::VectorType> &normals,
@@ -51,7 +58,7 @@ public:
            typename NormalRange,
            typename TrisRange,
            typename MTLSRange>
-  bool WriteObject(const char *name,
+  bool WriteObject(const std::string& name,
                    const PointRange &v,
                    const TextCoordRange &tex_coords,
                    const NormalRange &normals,
@@ -64,7 +71,7 @@ public:
 private:
   template<typename Scalar>
   bool
-  ReadPly(const char *name,
+  ReadPly(const std::string& name,
           std::vector<gr::Point3D<Scalar> > &v,
           std::vector<typename gr::Point3D<Scalar>::VectorType> &normals);
 
@@ -81,12 +88,12 @@ private:
    */
   template<typename Scalar>
   bool
-  ReadPtx(const char *name,
+  ReadPtx(const std::string& name,
           std::vector<gr::Point3D<Scalar> > &v);
 
   template<typename Scalar>
   bool
-  ReadObj(const char *name,
+  ReadObj(const std::string& name,
           std::vector<gr::Point3D<Scalar> > &v,
           std::vector<Eigen::Matrix2f> &tex_coords,
           std::vector<typename gr::Point3D<Scalar>::VectorType> &normals,
@@ -95,7 +102,7 @@ private:
 
   template<typename PointRange, typename NormalRange>
   bool
-  WritePly(std::string name,
+  WritePly(const std::string& name,
            const PointRange &v,
            const NormalRange &normals);
 
@@ -105,7 +112,7 @@ private:
            typename TrisRange,
            typename MTLSRange>
   bool
-  WriteObj(std::string name,
+  WriteObj(const std::string& name,
            const PointRange &v,
            const TexCoordRange &tex_coords,
            const NormalRange &normals,
@@ -126,7 +133,7 @@ private:
   /// Limits dependency on stb just to compilation of the library by compiling
   /// required stbi methods to object files at library compilation.
   unsigned char*
-  stbi_load_(char const *filename, int *x, int *y, int *comp, int req_comp);
+  stbi_load_(const std::string& name, int *x, int *y, int *comp, int req_comp);
 
   void
   stbi_image_free_(void *retval_from_stbi_load);
@@ -138,5 +145,4 @@ private:
 }; // class IOMananger
 
 #include "io.hpp"
-#include "io_ply.h"
 

@@ -157,4 +157,21 @@ if (CXX_FILESYSTEM_HAVE_FS)
     if(OpenGR_USE_CHEALPIX)
         target_link_libraries(matching3pcs ${Chealpix_LIBS} )
     endif(OpenGR_USE_CHEALPIX)
+
+
+    #############################################
+    ## io
+    if (OpenGR_COMPILE_APPS)
+        set(io_SRCS io.cc )
+        add_executable(test_io ${io_SRCS} ${testing_SRCS})
+        add_test(NAME test_io
+                #CONFIGURATIONS Release
+                COMMAND test_io)
+        set_tests_properties ( test_io PROPERTIES TIMEOUT 600) # in seconds
+        target_link_libraries(test_io gr::io ${OpenGRTestsDeps} std::filesystem)
+        target_compile_definitions(test_io PUBLIC -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}> -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
+        add_dependencies(test_io dataset-standford-bunny)
+        add_dependencies(buildtests test_io)
+    endif (OpenGR_COMPILE_APPS)
 endif (CXX_FILESYSTEM_HAVE_FS)
+

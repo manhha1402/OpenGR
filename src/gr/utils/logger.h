@@ -73,13 +73,13 @@ public:
     inline void Log(const Args&...args) const{
         switch(logLevel_) {
         case NoLog:
-            LOG<NoLog, level>(args...);
+            LOGGING<NoLog, level>(args...);
             break;
         case ErrorReport:
-            LOG<ErrorReport, level>(args...);
+            LOGGING<ErrorReport, level>(args...);
             break;
         case Verbose:
-            LOG<Verbose, level>(args...);
+            LOGGING<Verbose, level>(args...);
             break;
         default:
             break;
@@ -107,7 +107,7 @@ protected:
     }
 
     template<LogLevel msgLevel, LogLevel appLevel, typename...Args>
-    static inline void LOG( const Args&...args) {
+    static inline void LOGGING( const Args&...args) {
         if(msgLevel >= appLevel){
             if (msgLevel == ErrorReport)
                 print_err_impl(args...);
